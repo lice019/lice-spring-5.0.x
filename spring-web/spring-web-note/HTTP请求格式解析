@@ -1,0 +1,81 @@
+一、HTTP请求格式
+
+当浏览器向Web服务器发出请求时，它向服务器传递了一个数据块，也就是请求信息，HTTP请求信息由3部分组成：
+
+①　请求方法 URI 协议/版本
+
+②　请求头(Request Header)
+
+③　请求正文
+
+下面是一个HTTP请求的例子：
+
+GET/sample.Jsp HTTP/1.1
+
+Accept:image/gif.image/jpeg,*/*
+
+Accept-Language:zh-cn
+
+Connection:Keep-Alive
+
+Host:localhost
+
+User-Agent:Mozila/4.0(compatible;MSIE5.01;Window NT5.0)
+
+Accept-Encoding:gzip,deflate
+
+
+
+username=jinqiao&password=1234
+
+
+
+（1）请求方法URI协议/版本
+
+请求的第一行是“方法URL协议版本”：GET/sample.jsp HTTP/1.1
+
+以上代码中“GET”代表请求方法，“/sample.jsp”表示URI，“HTTP/1.1代表协议和协议的版本。
+
+根据HTTP标准，HTTP请求可以使用多种请求方法。例如：HTTP1.1支持7种请求方法：GET、POST、HEAD、OPTIONS、PUT、DELETE和TARCE。在Internet应用中，最常用的方法是GET和POST。
+
+URL完整地指定了要访问的网络资源，通常只要给出相对于服务器的根目录的相对目录即可，因此总是以“/”开头，最后，协议版本声明了通信过程中使用HTTP的版本。
+
+（2）请求头(Request Header)
+
+请求头包含许多有关的客户端环境和请求正文的有用信息。例如，请求头可以声明浏览器所用的语言，请求正文的长度等。
+
+Accept:image/gif.image/jpeg.*/*
+
+Accept-Language:zh-cn
+
+Connection:Keep-Alive
+
+Host:localhost
+
+User-Agent:Mozila/4.0(compatible:MSIE5.01:Windows NT5.0)
+
+Accept-Encoding:gzip,deflate.
+
+（3）　请求正文
+
+请求头和请求正文之间是一个空行，这个行非常重要，它表示请求头已经结束，接下来的是请求正文。请求正文中可以包含客户提交的查询字符串信息：
+
+username=jinqiao&password=1234
+
+在以上的例子的HTTP请求中，请求的正文只有一行内容。当然，在实际应用中，HTTP请求正文可以包含更多的内容。
+
+四、HTTP请求方法：GET POST
+
+1）GET方法
+
+GET方法是默认的HTTP请求方法，我们日常用GET方法来提交表单数据，然而用GET方法提交的表单数据只经过了简单的编码，同时它将作为URL的一部分向Web服务器发送，因此，如果使用GET方法来提交表单数据就存在着安全隐患上。例如
+
+Http://127.0.0.1/login.jsp?Name=zhangshi&Age=30&Submit=%cc%E+%BD%BB
+
+从上面的URL请求中，很容易就可以辩认出表单提交的内容。（？之后的内容）另外由于GET方法提交的数据是作为URL请求的一部分所以提交的数据量不能太大
+
+2)POST方法
+
+POST方法是GET方法的一个替代方法，它主要是向Web服务器提交表单数据，尤其是大批量的数据。POST方法克服了GET方法的一些缺点。通过POST方法提交表单数据时，数据不是作为URL请求的一部分而是作为标准数据传送给Web服务器，这就克服了GET方法中的信息无法保密和数据量太小的缺点。因此，出于安全的考虑以及对用户隐私的尊重，通常表单提交时采用POST方法。
+
+从编程的角度来讲，如果用户通过GET方法提交数据，则数据存放在QUERY＿STRING环境变量中，而POST方法提交的数据则可以从标准输入流中获取。

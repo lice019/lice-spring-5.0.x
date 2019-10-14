@@ -1,0 +1,45 @@
+ApplicationContext：是spring为应用程序提供配置的中央接口。代表上下文环境的意思。
+
+ApplicationContext是一个接口：
+1、ApplicationContext继承关系：
+    EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory,MessageSource, ApplicationEventPublisher, ResourcePatternResolver
+
+2、被继承或实现关系：
+    两大子接口：ConfigurableApplicationContext、WebApplicationContext。
+
+2.1、ConfigurableApplicationContext接口：
+       (1)、被AbstractApplicationContext实现
+       (2)、被ConfigurableWebApplicationContext继承
+
+    AbstractApplicationContext继承关系：
+        子类：AbstractRefreshableApplicationContext、GenericApplicationContext
+
+       AbstractRefreshableApplicationContext继承关系：
+        子类：AbstractRefreshableConfigApplicationContext
+            AbstractRefreshableConfigApplicationContext子类：AbstractXmlApplicationContext、AbstractRefreshableWebApplicationContext
+            AbstractXmlApplicationContext子类：FileSystemXmlApplicationContext、ClassPathXmlApplicationContext
+            AbstractRefreshableWebApplicationContext子类：XmlWebApplicationContext、GroovyWebApplicationContext、AnnotationConfigWebApplicationContext
+
+        (重点)子类：GenericApplicationContext
+                GenericApplicationContext子类：GenericXmlApplicationContext、StaticApplicationContext、GenericWebApplicationContext、ResourceAdapterApplicationContext、GenericGroovyApplicationContext、AnnotationConfigApplicationContext(注解主要的初始化IOC容器)
+
+    ConfigurableWebApplicationContext继承关系：
+        (1)、GenericWebApplicationContext
+        (2)、StaticWebApplicationContext
+                SimpleWebApplicationContext、ComplexWebApplicationContext
+        (3)、AbstractRefreshableWebApplicationContext
+                XmlWebApplicationContext、GroovyWebApplicationContext、AnnotationConfigWebApplicationContext
+2.2、WebApplicationContext接口：
+        实现类：StubWebApplicationContext
+        子接口：ConfigurableWebApplicationContext
+
+
+
+     (1)、ConfigurableWebApplicationContext
+            GenericWebApplicationContext
+            StaticWebApplicationContext
+                    SimpleWebApplicationContext、ComplexWebApplicationContext
+            AbstractRefreshableWebApplicationContext
+                    XmlWebApplicationContext、GroovyWebApplicationContext、AnnotationConfigWebApplicationContext
+
+

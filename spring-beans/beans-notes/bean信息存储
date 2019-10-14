@@ -1,0 +1,10 @@
+spring-beans模块：
+
+1、spring-beans模块中，定义存储bean信息的类：
+   spring定义了存储bean的信息的类有：AbstractBeanDefinition(根类)；实现了根类的子类有：RootBeanDefinition、ChildBeanDefinition、GenericBeanDefinition.
+   其中GenericBeanDefinition类中有两个子类：ScannedGenericBeanDefinition、AnnotatedGenericBeanDefinition
+   （1）、AnnotatedGenericBeanDefinition：存储@Configuration注解注释的类。
+   （2）、ScannedGenericBeanDefinition：存储@Component、@Service、@Controller等注解注释的类
+   spring初始化时，会用GenericBeanDefinition或是ConfigurationClassBeanDefinition（用@Bean注解注释的类）存储用户自定义的Bean，在初始化Bean时，又会将其转换为RootBeanDefinition
+
+   RootBeanDefinition与AbstractBeanDefinition是互补关系，RootBeanDefinition在AbstractBeanDefinition的基础上定义了更多属性，初始化Bean需要的信息基本完善

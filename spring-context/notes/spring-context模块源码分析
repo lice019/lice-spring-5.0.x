@@ -1,0 +1,3 @@
+spring-context模块的概述：
+1、概述：
+    spring-context模块是spring框架中的重要组件，context组件他实际上就是给 Spring 提供一个运行时的环境，用以保存各个对象的状态。

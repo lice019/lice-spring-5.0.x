@@ -1,0 +1,35 @@
+spring初始化bean容器方式：
+spring初始化bean容器有四种方式，前三种是基于XML配置文件(applicationContext.xml)的，最后一个种是基于注解方式。
+
+
+以下方式：
+1、使用XmlBeanFactory+Resource（少用，基于XML方式配置bean）
+         //获得spring资源，加载配置文件
+         Resource resource = new ClassPathResource("applicationContext.xml");
+
+         //获得spring的容器实例，BeanFactory这是一个抽象的接口
+         BeanFactory factory = new XmlBeanFactory(resource);
+
+         //从容器中找到我们的bean，也就是我们的类
+          IHello hi = (IHello)factory.getBean("hellobean");
+
+2、使用FileSystemXmlApplicationContext（少用，也是基于XML配置，并且是系统文件路径）
+         //从文件系统中加载配置文件
+         ApplicationContext ac = new FileSystemXmlApplicationContext("WebRoot/WEB-INF/applicationContext.xml");
+         //bean工厂（可省）
+         BeanFactory beanFactory=new XmlBeanFactory(resource);
+         IHello hi = (IHello)ac.getBean("hellobean");
+
+3、使用ClassPathXmlApplicationContext（最常用的XML配置文件初始化）
+
+        //从项目的类路径下加载applicationContext.xml
+        ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+        IHello hi = (IHello)ac.getBean("hellobean");
+
+4、基于注解方式来初始化，是spring5.0之后提倡的方式
+
+        //基于注解方式初始化
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        Student stu = ac.getBean(Student.class);
+
+        注意：使用注解方式，可以在APPConfig.class中配置bean，也可以直接在类上使用注解(@Component)来声明该类为一个bean

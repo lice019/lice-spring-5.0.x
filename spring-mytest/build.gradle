@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'org.springframework'
+version '5.0.16.BUILD-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //添加spring源码中模块依赖
+    compile(project(":spring-context"))
+    compile(project(":spring-aop"))
+    compile("org.aspectj:aspectjrt:1.8.5")
+    compile("org.aspectj:aspectjweaver:1.8.5")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+//设置编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

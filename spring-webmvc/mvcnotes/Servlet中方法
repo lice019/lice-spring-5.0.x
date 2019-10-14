@@ -1,0 +1,12 @@
+一个标准的Servlet中需要包括以下方法：
+(1)、public void init(ServletConfig config) throws ServletException;---初始化Servlet和相关配置
+(2)、public ServletConfig getServletConfig();----获取Servlet的配置信息
+(3)、 public void service(ServletRequest req, ServletResponse res)
+    	throws ServletException, IOException;
+    	---Servlet中最核心的方法，用于处理HTTP业务
+(4)、public String getServletInfo();----获取Servlet类的信息
+(5)、public void destroy();---销毁Servlet
+
+
+一个标准的HTTPServlet需要包含以下方法：
+    在标准的Servlet接口中加上doGet()、doPost()。

@@ -1,0 +1,8 @@
+spring注解开发初始化bean容器过程：
+
+1、通过org.springframework.context.annotation.AnnotationConfigApplicationContext来初始化bean容器
+   //AppConfig.class为注解方式的全局bean配置类
+   AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+2、根据出入的AppConfig.class去加载扫描含有注解的bean类。
+
