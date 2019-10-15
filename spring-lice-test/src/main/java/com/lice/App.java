@@ -32,6 +32,7 @@ public class App {
 		AOPService aopService = ac.getBean(AOPService.class);
 		aopService.pointCut();
 
+
 //		GenericBeanDefinition genericBeanDefinition = new GenericBeanDefinition();
 //		genericBeanDefinition.setBeanClass(Student.class);
 

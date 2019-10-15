@@ -15,7 +15,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @ComponentScan("com.lice")
 @EnableAspectJAutoProxy
-public class AppConfig {
+public class AppConfig{
 
 
 

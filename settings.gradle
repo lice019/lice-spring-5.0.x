@@ -31,6 +31,6 @@ rootProject.children.each {project ->
 }
 
 //自己添加的测试模块
-include 'spring-mytest'
-
+include 'spring-lice-test'
+include 'spring-lice-boot'
 
