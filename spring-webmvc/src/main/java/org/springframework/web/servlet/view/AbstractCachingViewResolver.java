@@ -1,18 +1,3 @@
-/*
- * Copyright 2002-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package org.springframework.web.servlet.view;
 
@@ -30,13 +15,9 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 
 /**
- * Convenient base class for {@link org.springframework.web.servlet.ViewResolver}
- * implementations. Caches {@link org.springframework.web.servlet.View} objects
- * once resolved: This means that view resolution won't be a performance problem,
- * no matter how costly initial view retrieval is.
- *
- * <p>Subclasses need to implement the {@link #loadView} template method,
- * building the View object for a specific view name and locale.
+ * AbstractCachingViewResolver它们解析的缓存视图实例的子类。缓存可以提高某些视图技术的性能。
+ * 您可以通过将该cache属性设置为来关闭缓存false。此外，如果必须在运行时刷新某个视图（例如，当修改FreeMarker模板时），
+ * 则可以使用该removeFromCache(String viewName, Locale loc)方法。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

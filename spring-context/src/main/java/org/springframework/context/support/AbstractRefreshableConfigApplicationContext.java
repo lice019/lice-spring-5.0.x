@@ -9,8 +9,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link abstractrefbleapplicationcontext}子类，用于添加指定配置位置的公共处理。作为基于xml的应用程序上下文实现的基类，
- * 如{@link ClassPathXmlApplicationContext}和{@link FileSystemXmlApplicationContext}，以及{@link org.springframework.web.context.support.XmlWebApplicationContext}。
+ * AbstractRefreshableConfigApplicationContext：可执行AbstractApplicationContext类中refresh()方法的
+ * 的上下文类
  *
  * @see #setConfigLocation
  * @see #setConfigLocations
@@ -19,7 +19,7 @@ import org.springframework.util.StringUtils;
 public abstract class AbstractRefreshableConfigApplicationContext extends AbstractRefreshableApplicationContext
 		implements BeanNameAware, InitializingBean {
 
-	//配置文件额路径，是一个数组，因为spring可以配置多个xml配置文件
+	//配置文件路径，是一个数组，因为spring可以配置多个xml配置文件
 	@Nullable
 	private String[] configLocations;
 

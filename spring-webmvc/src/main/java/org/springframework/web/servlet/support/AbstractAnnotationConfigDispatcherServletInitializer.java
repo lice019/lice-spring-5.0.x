@@ -6,24 +6,11 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
 /**
- * AbstractAnnotationConfigDispatcherServletInitializer：用于java方式配置初始化一个web.xml 中配置Dispatcherservlet（spring mvc的前端控制器） 和 ContextConfigLocation（spring的监听器，用于tomcat启动初始化IOC容器） 和一些拦截器。
- * 在spring3.0之后，java配置方式完全可以取代了xml配置方式，包括web.xml的配置。
+ * AbstractAnnotationConfigDispatcherServletInitializer：用于Java配置，但又不借助WebApplicationContext
+ * 来初始web容器，实际上是反顺序来初始化web容器，通过初始化DispatchServlet后，再初始化WebApplicationContext
  *
- * <p>
- * {@link org.springframework.web.WebApplicationInitializer WebApplicationInitializer}
- * 去注册一个 {@code DispatcherServlet} 并使用基于Java的Spring配置。
+ * 作用：给开发人员通过继续该类来实现Java配置的web容器初始化
  *
- * <p>实现需要实现:
- * <ul>
- * <li>{@link #getRootConfigClasses()} -- 用于“根”应用程序上下文（非Web基础结构）配置。
- * <li>{@link #getServletConfigClasses()} -- 用于 {@code DispatcherServlet}应用程序上下文（spring mvc基础结构）配置。
- * </ul>
- *
- * <p>I如果不需要应用程序上下文层次结构，则应用程序可以通过 {@link #getRootConfigClasses()} 并返回
- * {@code null} from {@link #getServletConfigClasses()}.
- *
- * @author Arjen Poutsma
- * @author Chris Beams
  * @since 3.2
  */
 public abstract class AbstractAnnotationConfigDispatcherServletInitializer
@@ -73,19 +60,50 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 
 }
 
-/**
- * @Override
- *        protected Class<?>[] getRootConfigClasses() {
- * 		return new Class<?>[] { RootConfig.class };
- *    }
- *
- *    @Override
- *    protected Class<?>[] getServletConfigClasses() {
- * 		return new Class<?>[] { WebConfig.class };        //指定Web配置类
- *    }
- *
- *    @Override
- *    protected String[] getServletMappings() {//将 DispatcherServlet 映射到 "/" 路径
- * 		return new String[] { "/" };
- *    }
+/*
+ * public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class<?>[] { RootConfig.class };
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class<?>[] { App1Config.class };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/app1/*" };
+    }
+}
+* 等价于web.xml：
+<web-app>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/root-context.xml</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>app1</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/app1-context.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>app1</servlet-name>
+        <url-pattern>/app1/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
  **/

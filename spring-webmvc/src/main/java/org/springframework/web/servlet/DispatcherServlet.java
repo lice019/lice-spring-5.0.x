@@ -255,10 +255,9 @@ public class DispatcherServlet extends FrameworkServlet {
 		setDispatchOptionsRequest(true);
 	}
 
-	/**
-	 * 通过WebApplicationContext穿件web容器环境
-	 *
-	 * @param webApplicationContext
+	/*
+	 * 初始化DispatchServlet时，将Spring web容器的上下文传给Servlet的容器。
+	 * 一般传入的是AnnotationConfigWebApplicationContext
 	 */
 	public DispatcherServlet(WebApplicationContext webApplicationContext) {
 		super(webApplicationContext);
@@ -950,7 +949,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
-	 *未找到处理程序->设置适当的HTTP响应状态。
+	 * 未找到处理程序->设置适当的HTTP响应状态。
 	 *
 	 * @param request  current HTTP request
 	 * @param response current HTTP response
@@ -1140,7 +1139,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
-	 *在包含之后恢复请求属性。
+	 * 在包含之后恢复请求属性。
 	 *
 	 * @param request            current HTTP request
 	 * @param attributesSnapshot the snapshot of the request attributes before the include

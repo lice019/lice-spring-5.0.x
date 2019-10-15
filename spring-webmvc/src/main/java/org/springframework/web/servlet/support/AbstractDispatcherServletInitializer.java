@@ -35,6 +35,8 @@ import org.springframework.web.servlet.FrameworkServlet;
  * @author Stephane Nicoll
  * @since 3.2
  */
+
+//使用XML配置，也可以使用这个类来初始化Servlet
 public abstract class AbstractDispatcherServletInitializer extends AbstractContextLoaderInitializer {
 
 
@@ -46,7 +48,7 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
-		//注册springmvc前端控制到IOC中
+		//注册spring mvc前端控制到IOC中
 		registerDispatcherServlet(servletContext);
 	}
 
@@ -110,11 +112,7 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 		return null;
 	}
 
-	/**
-	 * Specify the servlet mapping(s) for the {@code DispatcherServlet} &mdash;
-	 * for example {@code "/"}, {@code "/app"}, etc.
-	 * @see #registerDispatcherServlet(ServletContext)
-	 */
+	//交给子类来确定Servlet的映射路径
 	protected abstract String[] getServletMappings();
 
 
@@ -161,3 +159,26 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 	}
 
 }
+
+/*
+基于XML配置：
+public class MyWebAppInitializer extends AbstractDispatcherServletInitializer {
+
+    @Override
+    protected WebApplicationContext createRootApplicationContext() {
+        return null;
+    }
+
+    @Override
+    protected WebApplicationContext createServletApplicationContext() {
+        XmlWebApplicationContext cxt = new XmlWebApplicationContext();
+        cxt.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+        return cxt;
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
+}
+ */

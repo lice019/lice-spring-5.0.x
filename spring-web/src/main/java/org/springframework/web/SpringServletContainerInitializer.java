@@ -15,8 +15,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
 /**
- *SpringServletContainerInitializer：实现了Servlet3.0规范的ServletContainerInitializer接口。用于spring初始化
- * tomcat容器，
+ *SpringServletContainerInitializer：实现了Servlet3.0规范的ServletContainerInitializer接口，
+ * 作用在于tomcat启动时，初始化Servlet容器和初始化Spring的容器
  *
  * @see #onStartup(Set, ServletContext)
  * @see WebApplicationInitializer
@@ -66,7 +66,8 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 
 		servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath");
 		//将ServletContainerInitializer所有实现类实例对象进行排序
-		//排序的目的是为了
+		//排序的目的是为了bean实例的执行顺序（一般排序都是spring内部定义的bean对象，用于初始化环境所需要用到的类对象）
+		//因为是容器环境的初始化，所有需要按一定的顺序步骤来处理
 		AnnotationAwareOrderComparator.sort(initializers);
 		for (WebApplicationInitializer initializer : initializers) {
 			initializer.onStartup(servletContext);

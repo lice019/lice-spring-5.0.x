@@ -1,18 +1,3 @@
-/*
- * Copyright 2002-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package org.springframework.web.reactive;
 
@@ -21,46 +6,29 @@ import reactor.core.publisher.Mono;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
- * Interface to be implemented by objects that define a mapping between
- * requests and handler objects.
- *
- * @author Rossen Stoyanchev
- * @author Sebastien Deleuze
- * @since 5.0
+ * HandlerMapping：spring mvc模块的核心组件，用于请求映射到实际的处理程序的URL解析，返回HandlerExecutionChain执行链
+ * 请求映射到实际的处理程序：就是用户请求的URL，进行解析URL，根据用户请求的URL来找到相应的Controller中的方法。
+ * <p>
+ * 将请求与拦截器列表一起映射到处理程序，以进行预处理和后期处理。映射基于某些标准，具体标准因HandlerMapping 实现而异。
+ * <p>
+ * 两个主要HandlerMapping实现：
+ * （1）、RequestMappingHandlerMapping （支持带@RequestMapping注释的方法）
+ * （2）、SimpleUrlHandlerMapping （维护对处理程序的URI路径模式的显式注册）。
  */
 public interface HandlerMapping {
 
-	/**
-	 * Name of the {@link ServerWebExchange#getAttributes() attribute} that
-	 * contains the mapped handler for the best matching pattern.
-	 */
+	//最佳匹配的处理处程序类名称
 	String BEST_MATCHING_HANDLER_ATTRIBUTE = HandlerMapping.class.getName() + ".bestMatchingHandler";
 
-	/**
-	 * Name of the {@link ServerWebExchange#getAttributes() attribute} that
-	 * contains the best matching pattern within the handler mapping.
-	 */
+	//处理程序映射中包含最佳匹配模式。
 	String BEST_MATCHING_PATTERN_ATTRIBUTE = HandlerMapping.class.getName() + ".bestMatchingPattern";
 
-	/**
-	 * Name of the {@link ServerWebExchange#getAttributes() attribute} that
-	 * contains the path within the handler mapping, in case of a pattern match
-	 * such as {@code "/static/**"} or the full relevant URI otherwise.
-	 * <p>Note: This attribute is not required to be supported by all
-	 * HandlerMapping implementations. URL-based HandlerMappings will
-	 * typically support it but handlers should not necessarily expect
-	 * this request attribute to be present in all scenarios.
+	/*
+	 *映射处理器
 	 */
 	String PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE = HandlerMapping.class.getName() + ".pathWithinHandlerMapping";
 
-	/**
-	 * Name of the {@link ServerWebExchange#getAttributes() attribute} that
-	 * contains the URI templates map mapping variable names to values.
-	 * <p>Note: This attribute is not required to be supported by all
-	 * HandlerMapping implementations. URL-based HandlerMappings will
-	 * typically support it, but handlers should not necessarily expect
-	 * this request attribute to be present in all scenarios.
-	 */
+	//URI属性
 	String URI_TEMPLATE_VARIABLES_ATTRIBUTE = HandlerMapping.class.getName() + ".uriTemplateVariables";
 
 	/**
@@ -84,11 +52,8 @@ public interface HandlerMapping {
 	String PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE = HandlerMapping.class.getName() + ".producibleMediaTypes";
 
 
-	/**
-	 * Return a handler for this request.
-	 * @param exchange current server exchange
-	 * @return a {@link Mono} that emits one value or none in case the request
-	 * cannot be resolved to a handler
+	/*
+	 *返回此请求的处理程序。
 	 */
 	Mono<Object> getHandler(ServerWebExchange exchange);
 
